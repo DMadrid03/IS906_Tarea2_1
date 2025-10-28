@@ -61,7 +61,7 @@ export const removeUser = async (req: Request, res: Response, next: NextFunction
         const id: number = parseInt(req.params.id, 10);
 
         if(isNaN(id)) {
-            return res.status(400).json({message: 'Id no icoocito'});
+            return res.status(400).json({message: 'No se encontró el usuario'});
         } else {
             await UserService.removeUser(id);
             res.status(204).send();

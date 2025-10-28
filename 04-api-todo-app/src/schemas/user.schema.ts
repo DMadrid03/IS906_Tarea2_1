@@ -5,7 +5,7 @@ import User  from '../interfaces/user.interface';
 z.config(z.locales.es());
 
 const UserSchema = z.object({
-    id: z.number().int().positive(),
+    id: z.number().optional(),
     name: z.string().min(1).max(100),
     email: z.email()
 });

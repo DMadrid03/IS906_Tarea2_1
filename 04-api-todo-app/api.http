@@ -1,3 +1,18 @@
+###crear usuario
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Pedro Perez",
+  "email": "perezP@gmail.com"
+}
+###Consultar usuarios
+GET http://localhost:3000/users
+
+##Consultar usuario por ID
+GET http://localhost:3000/users/2
+
+
 ### Consulta de todas las tareas
 GET http://localhost:3000/todos
 
@@ -24,3 +39,7 @@ Content-Type: application/json
   "description": "Prueba de edicion de tareas"
   
 }
+
+### Eliminar una tarea
+DELETE http://localhost:3000/todos/fedcb401-ed06-4a3b-a667-4beebac2d9b4
+
