@@ -6,11 +6,14 @@ import { randomUUID as uuid } from "node:crypto";
 // "base de datos"
 // const todos: Todo[] = [];
 
-export const getAll = async (): Promise<Todo[]> => {
+export const getAll = async () => {
   return await prisma.todo.findMany({
-    orderBy: {
-      createdAt: "desc",
+    include: {
+      user: {  
+        select: { name: true }
+      }
     },
+    orderBy: { createdAt: "desc" }
   });
 };
 
