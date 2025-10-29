@@ -14,6 +14,7 @@ const todoSchema = z.object({
   userId: z.number().int().optional().nullable()
 });
 
+const todoUpdateSchema = todoSchema.partial();
 // export type Todo = z.infer<typeof todoSchema>;
 
 export const validateTodo = (todo: Partial<Todo>) => {
@@ -21,5 +22,5 @@ export const validateTodo = (todo: Partial<Todo>) => {
 };
  
 export const validateTodoPartial = (todo: Partial<Todo>) =>{
-  return todoSchema.partial().safeParse(todo)
+  return todoUpdateSchema.partial().safeParse(todo);
 }

@@ -42,10 +42,17 @@ export const update = async (
   todoId: string,
   payload: Partial<Todo>
 ): Promise<Todo | null> => {
+  console.log("Modificando todo:", todoId, payload);
   return await prisma.todo.update({
     where: {
       id: todoId,
     },
     data: payload,
+  });
+};
+
+export const remove = async (todoId: string): Promise<Todo | null> => {
+  return await prisma.todo.delete({
+    where: { id: todoId },
   });
 };

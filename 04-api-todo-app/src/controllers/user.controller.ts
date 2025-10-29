@@ -1,7 +1,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import * as UserService from '../services/user.service';
-import { validateUser, validateUserPartial } from '../schemas/user.schema';
+import { validateCreateUser, validateUser, validateUserPartial } from '../schemas/user.schema';
 import User from '../interfaces/user.interface';
 
 
@@ -18,6 +18,9 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
     try {
         const id: number = parseInt(req.params.id, 10);
         const user: User | null = await UserService.findUserById(id);
+        if(!user) {
+            return res.status(404).json({message: 'Usuario no encontrado'});
+        }
         res.json(user);
     } catch (error) {
         next(error)
@@ -26,7 +29,7 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
 
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
 
-    const { success, error, data } = validateUser(req.body);
+    const { success, error, data } = validateCreateUser(req.body);
 
     try {
         if (!success) {
@@ -50,7 +53,12 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
         }
 
         const usr: number = parseInt(req.params.id, 10)
-        res.status(200).json(await UserService.updateUser(usr, data))
+        const u = await UserService.updateUser(usr, data)
+
+        if(!u) {
+            return  res.status(404).json({message: 'Usuario no encontrado'});
+        }
+        res.status(200).json(u);
     } catch (error) {
         next(error);
     }

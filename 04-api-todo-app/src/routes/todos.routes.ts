@@ -5,6 +5,7 @@ import {
   findById,
   create,
   update,
+  remove,
 } from "../controllers/todo.controller";
 
 // /todos/....
@@ -14,5 +15,6 @@ router.get("/", getAll);
 router.get("/:id", findById);
 router.post("/", create);
 router.put("/:id", update);
+router.delete("/:id", remove);
 
 export default router;

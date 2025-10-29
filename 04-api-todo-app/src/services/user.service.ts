@@ -16,14 +16,11 @@ export const findUserById = async (id: number): Promise<User | null> => {
     })
 }
 
-export const createUser = async (usr: Partial<User>): Promise<User> => {
-
-    const usuario = { id: 1, ...usr } as User
-    return await prisma.user.create(
-        {
-            data: usuario
-        }
-    );
+export const createUser = async (usr: Pick<User, 'name' | 'email'>): Promise<User> => {
+    const { name, email } = usr;
+    return await prisma.user.create({
+        data: { name, email }
+    });
 }
 
 export const updateUser = async (id: number, usr: Partial<User>): Promise<User | null> => {

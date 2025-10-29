@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as TodoService from "../services/todo.service";
 import { validateTodo, validateTodoPartial } from "../schemas/todo.schema";
+import { number } from "zod";
 
 export const getAll = async (
   req: Request,
@@ -88,3 +89,27 @@ export const update = async (
     next(error);
   }
 };
+
+export const remove =async ( req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = req.params.id;
+    let todo = await TodoService.findById(id);
+
+    if(!todo){
+      return res.status(404).json({
+        message: "La tarea no existe",
+      });
+    }
+    
+    
+    todo = await TodoService.remove(id);
+    if (!todo) {
+      return res.status(404).json({
+        message: "La tarea no existe",
+      });
+    }
+  }
+  catch (error) {
+    next(error);
+  }
+}

@@ -9,6 +9,7 @@ const UserSchema = z.object({
     name: z.string().min(1).max(100),
     email: z.email()
 });
+const createUserSchema = UserSchema.omit({ id: true });
 
 export const validateUser = (user: Partial<User>) => {
     return UserSchema.safeParse(user);
@@ -16,4 +17,8 @@ export const validateUser = (user: Partial<User>) => {
 
 export const validateUserPartial = (user: Partial<User>) => {
     return UserSchema.partial().safeParse(user);
+}
+
+export const validateCreateUser = (user: Partial<User>) => {
+    return createUserSchema.safeParse(user);
 }
